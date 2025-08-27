@@ -9,7 +9,14 @@ app = FastAPI(title="FastAPIMongoAPI", description="Dynamic entity FastAPI + Mon
 
 
 def get_db():
-    mongodb_uri = os.getenv("MONGODB_URI")
+   
+    mongodb_uri = os.getenv(
+    "MONGODB_URI",
+    "mongodb+srv://nuwanwp:zXi15ByhNUNFEOOD@cluster0.gjas8wj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+)
+
+    MONGODB_DB = os.getenv("MONGODB_DB", "fastapi_mongo_api")
+
     database_name = os.getenv("MONGODB_DB")
     if not mongodb_uri or not database_name:
         raise RuntimeError("Environment variables MONGODB_URI and MONGODB_DB must be set")
