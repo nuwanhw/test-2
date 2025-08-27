@@ -1,0 +1,53 @@
+---
+alwaysApply: true
+---
+# Cursor AI Rules: FastAPI + MongoDB + GitHub + Render
+
+RULE: Generate FastAPI REST API
+DESCRIPTION: Detailed FastAPI REST API with MongoDB integration. JSON objects should be saved as-is, without using Pydantic models. The entity/collection name will be provided dynamically through the request.
+
+INPUTS:
+  - API_NAME: FastAPIMongoAPI
+  - DATABASE: MongoDB Atlas
+  - USE_MODELS: false
+  - ENTITY_DYNAMIC: true
+  - DESCRIPTION: >
+      API will have 4 endpoints: 
+        1. GET_ALL: Fetch all documents from the specified entity/collection.
+        2. GET_BY_ID: Fetch a single document by its MongoDB ObjectId.
+        3. SAVE_NEW: Save a new JSON object exactly as received in the request body.
+        4. UPDATE: Update an existing document by its ObjectId with JSON fields provided in the request.
+  - ENDPOINTS:
+      - GET_ALL: /{entity}
+      - GET_BY_ID: /{entity}/{item_id}
+      - SAVE_NEW: /{entity}
+      - UPDATE: /{entity}/{item_id}
+  - SERIALIZATION: Convert MongoDB ObjectId to string in responses.
+  - REQUEST_BODY: Accept any JSON object without enforcing a schema.
+  - RESPONSE: Return the saved or updated document including its ObjectId as string.
+
+OUTPUT:
+  FILES:
+    - main.py
+    - requirements.txt
+    - README.md
+    - .gitignore
+  INSTRUCTIONS:
+    - main.py: Implement FastAPI REST API with the specified endpoints, MongoDB connection using pymongo, dynamic entity names, and JSON-as-is handling.
+    - requirements.txt: Include all necessary dependencies:
+        - fastapi
+        - uvicorn
+        - pymongo
+        - dnspython
+    - README.md: Document how to run the app locally, push to GitHub, and deploy on Render.
+    - .gitignore: Exclude __pycache__, .env, and virtual environment directories.
+    - set the remote, commit, and push using PowerShell-friendly commands now.
+
+DEPLOYMENT:
+  - GITHUB:
+      - Initialize a new Git repo.
+      - Commit all project files.
+      - Push to GitHub repository (name will be provided at runtime).
+  - RENDER:
+      - login to render.com using github login 
+      - deploy to render as web api
